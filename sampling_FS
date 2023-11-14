@@ -1,0 +1,59 @@
+% If you sample a signal in the time domain and then take the fourier
+% transform of it, the fourier transform is periodic
+% 
+% I am trying to wrap my head around that still...
+%
+% Amount of samples in the frequency domain is the recipocal of the distance between
+% spectrial copies(?)
+
+%isnt this making it discrete ...
+
+   %%Time specifications:
+   Fs = 8000;                   % samples per second
+   dt = 1/Fs;                   % seconds per sample
+   StopTime = 0.25;             % seconds
+   t = (0:dt:StopTime-dt)';     % seconds
+   %%Sine wave:
+   Fc = 10;                     % hertz
+   x = cos(2*pi*Fc*t);
+   plot(t, x)
+   hold on
+
+%sampled version
+t2 = (0:dt/0.02:StopTime-dt/0.02)';  %nyquist is sample rate must be more than at least half of the frequency
+x2 = cos(2*pi*Fc*t2);
+stem(t2, x2)
+
+   hold off
+
+% time series sampling overlayed
+% Ts = 0.5; %sampling frequency ... didnt know how to determine via nyquist
+% n = 0:Ts:20;
+% stem(n, sin(n));
+% hold off
+
+p = exp(i*2*pi*Fc.*t) %eulers??
+plot(t, p)
+
+
+% frequency domain of continous time series
+y = fft(x);
+f = (0:length(y)-1/length(y));
+plot(f, fftshift(abs(y)));
+hold on
+
+% frequency domain of sampled time series
+y2 = fft(x2);
+
+
+%it should be discrete why doesnt it repeat and periodic??
+%both are techincally discrete
+
+% y2 = fft(sin(n));
+% fs = 1/Ts;
+% f = (0:length(y2)-1*fs/length(y2)); %want to be compariable to y so plotted on range of y's x values
+% plot(f, fftshift(abs(y2)))
+hold off
+
+%why doesnt it repeat.....
+
