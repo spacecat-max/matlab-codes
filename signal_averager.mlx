@@ -1,0 +1,54 @@
+%averagin signal 
+
+   %%Time specifications:
+   Fs = 8000;                   % samples per second
+   dt = 1/Fs;                   % seconds per sample
+   StopTime = 0.25;             % seconds
+   t = (0:dt:StopTime-dt)';     % seconds
+   %%Sine wave:
+   Fc = 100;                     % hertz
+   x = cos(2*pi*Fc*t);
+   plot(t, x)
+
+   noise1 = wgn(2000,1,20);
+   noise2 = wgn(2000,1,20);
+   noise3 = wgn(2000,1,20);
+   noise4 = wgn(2000,1,20);
+
+   sig1=x+noise1;
+   sig2=x+noise2;
+   sig3=x+noise3;
+   sig4=x+noise4;
+
+   x1=fft(sig1);
+   x2=fft(sig2);
+   x3=fft(sig3);
+   x4=fft(sig4);
+
+   x1=x1.*conj(x1);
+   x2=x2.*conj(x2);
+   x3=x3.*conj(x3);
+   x4=x4.*conj(x4);%congidet
+
+   x5 = (x1 + x2+ x3 +x4)/4 ; %average
+   plot(fftshift(x5));
+   %plot(t, sig1)
+
+   %averaging....power? no averaging
+   %plot(t, abs(fft(sig1)))
+
+   % a=rms(sig1)^2;
+   % b=rms(sig2)^2;
+   % c=rms(sig3)^2;
+   % d=rms(sig4)^2;
+   % 
+   % avg1=sig1./a;
+   % avg2=sig2./b;
+   % avg3=sig3./c;
+   % avg4=sig4./d;
+   % 
+   % averaged = avg1 + avg2 + avg3 +avg4;
+
+  % plot(t, abs(fft(averaged)))
+    
+
