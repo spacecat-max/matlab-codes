@@ -1,0 +1,28 @@
+x = linspace(-5,5);
+
+%sinc window
+figure;
+plot(x, sinc(x));
+
+%signal
+y = rectangularPulse(x);
+figure;
+plot(x, y);
+
+% windowed signal
+% z = sinc(x).*y;
+% plot(x, z)
+
+plot()
+
+w = kaiser(200,2.5);
+z = w.*y;
+
+%fft of windowed signal
+plot(x, abs(fft(z)))
+
+%fft of UN-windowed signal
+plot(x, fftshift(abs(fft(y))))
+%expecting ?????
+
+
